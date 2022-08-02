@@ -1,0 +1,7 @@
+import win32com.client as client
+
+powerpoint = client.Dispatch('powerpoint.application')
+#create a new presentation
+ppPres = powerpoint.Presentations.add()
+#add a blank slide
+ppSlide = ppPres.Slides.add(1,12)
