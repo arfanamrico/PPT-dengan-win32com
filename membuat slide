@@ -1,7 +1,53 @@
 import win32com.client as client
+import os
 
 powerpoint = client.Dispatch('powerpoint.application')
 #create a new presentation
 ppPres = powerpoint.Presentations.add()
 #add a blank slide
 ppSlide = ppPres.Slides.add(1,12)
+#create a textbox
+ppshape = ppSlide.Shapes.AddTextbox(1,65,140,400,340)
+pptext = ppshape.TextFrame.TextRange
+pptext.Text = 'ini adalah text pertama'
+#manipulasi font
+ppfont = pptext.font
+ppfont.size = 32
+ppfont.Name = 'Arial'
+ppfont.Bold = False
+ppfont.Underline = True
+ppfont.Italic = True
+ppfont.Color.RGB = 255 #red color
+#create shape
+ppshapecloud = ppSlide.Shapes.AddShape(52,512,118,400,340)
+ppshapecloud.Rotation = 90
+ppfillformat = ppshapecloud.Fill
+ppfillformat.ForeColor.RGB = 65535 #yellow
+#insert tekt in shape
+ppshtxt = ppshapecloud.TextFrame.TextRange
+ppshtxt.Text = 'text didalam shape'
+ppfonts = ppshtxt.font
+ppfonts.size = 28
+ppfonts.Bold = True
+ppfonts.Color.RGB = 0 #black color
+#insert picture
+im_path = os.getcwd() + "/panoramic #N0165_0701R (1).jpeg"
+pic = ppSlide.Shapes.AddPicture2(im_path,0,-1,65,140,400,340)
+#insert Video
+vid_path = os.getcwd() + "/onepice.ts"
+vid = ppSlide.Shapes.AddMediaObject2(vid_path,0,-1,65,140,400,340)
+#insert table
+tabelsh = ppSlide.Shapes.AddTable(4,4,65,140,400,340)
+tabel = tabelsh.Table
+rows = tabel.Rows
+row1 = rows.Item(1) #baris pertama pada tabel
+row1.Height = 10
+row2 = rows.Item(2) #baris kedua pada tabel
+row2.Height = 10
+#insert text in table
+cell = tabel.Cell(1,1) #row,colom
+tbltxt = cell.Shape.TextFrame.TextRange
+tbltxt.Text = 'Arfan'
+#align center
+paragrapformat = tbltxt.ParagraphFormat
+paragrapformat.Alignment = 2
