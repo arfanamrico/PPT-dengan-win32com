@@ -1,0 +1,9 @@
+import win32com.client 
+
+Application = win32com.client.Dispatch("PowerPoint.Application")
+Application.Visible = True # shows what's happening, not required, but helpful for now
+Presentation = Application.Presentations.Open(r"C:\Users\arfan\Downloads\pmt_template.pptx") # open file ppt
+for i in range(len(Presentation.slides)):
+    print(f'slide {i}')
+    for shape in Presentation.slides[i].shapes: 
+        print('\t',(shape.name))
