@@ -1,0 +1,69 @@
+import win32com.client
+import os
+
+dirpath = r"E:\Logfiles\TGR565\capturan"
+Application = win32com.client.Dispatch("PowerPoint.Application")
+Application.Visible = True # shows what's happening, not required, but helpful for now
+Presentation = Application.Presentations.Open(r"E:\Report\RO_Masterppt.pptx") # open file ppt
+pano = ["0.jpg","30.jpg","60.jpg","90.jpg","120.jpg","150.jpg","180.jpg","210.jpg","240.jpg","270.jpg","300.jpg","330.jpg"]
+auditdata = ["compas.jpg","tower.jpg"]
+azz = ["azz_1.jpg","azz_2.jpg","azz_3.jpg","azzcom_1.jpg","azzcom_2.jpg","azzcom_3.jpg"]
+mt = ["mt_1.jpg","mt_2.jpg","mt_3.jpg"]
+cetlock = ["lock1_1.jpg","lock1_2.jpg","lock2_1.jpg","lock2_2.jpg","lock3_1.jpg","lock3_2.jpg"]
+histogram = ["histo_lock.jpg","histo_unlock.jpg"]
+plotlock = ["rsrp.jpg","sinr.jpg","pci.jpg","earfcn.jpg"]
+plotunlock = ["rsrp1.jpg","sinr1.jpg","pci1.jpg","earfcn1.jpg"]
+
+#Slide1 = Presentation.Slides.Add(1, 12) # new slide, at beginning
+Slide3 = Presentation.slides[3]
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[0]}', LinkToFile=False, SaveWithDocument=True, Left=59.04, Top=86.4, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[1]}', LinkToFile=False, SaveWithDocument=True, Left=178.56, Top=86.4, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[2]}', LinkToFile=False, SaveWithDocument=True, Left=299.52, Top=86.4, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[3]}', LinkToFile=False, SaveWithDocument=True, Left=421.2, Top=86.4, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[4]}', LinkToFile=False, SaveWithDocument=True, Left=59.04, Top=187.2, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[5]}', LinkToFile=False, SaveWithDocument=True, Left=178.56, Top=187.2, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[6]}', LinkToFile=False, SaveWithDocument=True, Left=299.52, Top=187.2, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[7]}', LinkToFile=False, SaveWithDocument=True, Left=421.2, Top=187.2, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[8]}', LinkToFile=False, SaveWithDocument=True, Left=59.04, Top=289.44, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[9]}', LinkToFile=False, SaveWithDocument=True, Left=178.56, Top=289.44, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[10]}', LinkToFile=False, SaveWithDocument=True, Left=299.52, Top=289.44, Width=95.76, Height=77.76)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{pano[11]}', LinkToFile=False, SaveWithDocument=True, Left=421.2, Top=289.44, Width=95.76, Height=77.76)
+
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{auditdata[0]}', LinkToFile=False, SaveWithDocument=True, Left=58.32, Top=400.32, Width=100.8, Height=102.24)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{auditdata[1]}', LinkToFile=False, SaveWithDocument=True, Left=182.88, Top=400.32, Width=90.72, Height=102.24)
+#azimuth with compass
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{azz[3]}', LinkToFile=False, SaveWithDocument=True, Left=556.56, Top=84.96, Width=111.6, Height=79.2)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{azz[4]}', LinkToFile=False, SaveWithDocument=True, Left=694.8, Top=84.96, Width=111.6, Height=79.2)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{azz[5]}', LinkToFile=False, SaveWithDocument=True, Left=832.32, Top=84.96, Width=111.6, Height=79.2)
+#azimuth no compass
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{azz[0]}', LinkToFile=False, SaveWithDocument=True, Left=556.56, Top=208.08, Width=111.6, Height=79.2)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{azz[1]}', LinkToFile=False, SaveWithDocument=True, Left=694.8, Top=208.08, Width=111.6, Height=79.2)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{azz[2]}', LinkToFile=False, SaveWithDocument=True, Left=832.32, Top=208.08, Width=111.6, Height=79.2)
+#mechanical
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{mt[0]}', LinkToFile=False, SaveWithDocument=True, Left=556.56, Top=331.2, Width=111.6, Height=79.2)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{mt[1]}', LinkToFile=False, SaveWithDocument=True, Left=694.8, Top=331.2, Width=111.6, Height=79.2)
+Slide3.Shapes.AddPicture(FileName=f'{dirpath}/{mt[2]}', LinkToFile=False, SaveWithDocument=True, Left=832.32, Top=331.2, Width=111.6, Height=79.2)
+#plotting dt
+Slide4 = Presentation.slides[4]
+Slide4.Shapes.AddPicture(FileName=f'{dirpath}/{plotlock[0]}', LinkToFile=False, SaveWithDocument=True, Left=51.12, Top=94.32, Width=212.4, Height=145.44)
+Slide4.Shapes.AddPicture(FileName=f'{dirpath}/{plotlock[1]}', LinkToFile=False, SaveWithDocument=True, Left=278.64, Top=94.32, Width=208.8, Height=145.44)
+Slide4.Shapes.AddPicture(FileName=f'{dirpath}/{plotlock[2]}', LinkToFile=False, SaveWithDocument=True, Left=498.96, Top=94.32, Width=199.44, Height=145.44)
+Slide4.Shapes.AddPicture(FileName=f'{dirpath}/{plotlock[3]}', LinkToFile=False, SaveWithDocument=True, Left=708.48, Top=94.32, Width=198, Height=145.44)
+#unlock
+Slide4.Shapes.AddPicture(FileName=f'{dirpath}/{plotunlock[0]}', LinkToFile=False, SaveWithDocument=True, Left=51.12, Top=304.56, Width=212.4, Height=145.44)
+Slide4.Shapes.AddPicture(FileName=f'{dirpath}/{plotunlock[1]}', LinkToFile=False, SaveWithDocument=True, Left=278.64, Top=304.56, Width=208.8, Height=145.44)
+Slide4.Shapes.AddPicture(FileName=f'{dirpath}/{plotunlock[2]}', LinkToFile=False, SaveWithDocument=True, Left=498.96, Top=304.56, Width=199.44, Height=145.44)
+Slide4.Shapes.AddPicture(FileName=f'{dirpath}/{plotunlock[3]}', LinkToFile=False, SaveWithDocument=True, Left=708.48, Top=304.56, Width=198, Height=145.44)
+
+#histogram
+Slide5 = Presentation.slides[5]
+Slide5.Shapes.AddPicture(FileName=f'{dirpath}/{histogram[0]}', LinkToFile=False, SaveWithDocument=True, Left=41.04, Top=74.88, Width=848.88, Height=203.04)
+Slide5.Shapes.AddPicture(FileName=f'{dirpath}/{histogram[1]}', LinkToFile=False, SaveWithDocument=True, Left=41.04, Top=321.12, Width=848.88, Height=203.04)
+#CET
+Slide6 = Presentation.slides[6]
+Slide6.Shapes.AddPicture(FileName=f'{dirpath}/{cetlock[0]}', LinkToFile=False, SaveWithDocument=True, Left=50.4, Top=102.96, Width=120.24, Height=243.36)
+Slide6.Shapes.AddPicture(FileName=f'{dirpath}/{cetlock[1]}', LinkToFile=False, SaveWithDocument=True, Left=202.32, Top=102.96, Width=120.24, Height=243.36)
+Slide6.Shapes.AddPicture(FileName=f'{dirpath}/{cetlock[2]}', LinkToFile=False, SaveWithDocument=True, Left=349.2, Top=102.96, Width=120.24, Height=243.36)
+Slide6.Shapes.AddPicture(FileName=f'{dirpath}/{cetlock[3]}', LinkToFile=False, SaveWithDocument=True, Left=491.04, Top=102.96, Width=120.24, Height=243.36)
+Slide6.Shapes.AddPicture(FileName=f'{dirpath}/{cetlock[4]}', LinkToFile=False, SaveWithDocument=True, Left=626.4, Top=102.96, Width=120.24, Height=243.36)
+Slide6.Shapes.AddPicture(FileName=f'{dirpath}/{cetlock[5]}', LinkToFile=False, SaveWithDocument=True, Left=773.28, Top=102.96, Width=120.24, Height=243.36)
