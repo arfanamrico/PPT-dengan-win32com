@@ -1,0 +1,374 @@
+import win32com.client 
+import os
+
+#dirpath = r"E:\RO TSEL JABO Project\Logfiles\KRW275_done\capturan\0.jpg"
+Application = win32com.client.Dispatch("PowerPoint.Application")
+Application.Visible = True # shows what's happening, not required, but helpful for now
+Presentation = Application.Presentations.Open(r"E:\Template\QC4T6S_PPT_test.pptx") # open file ppt
+
+dirpath = r"E:\Template\test 4T6S"
+sec1 = ['azzcombf_1.jpg','azzcomaf_1.jpg','mtbf_1.jpg','mtaf_1.jpg','etbf_1.jpg','etaf_1.jpg','azz_1.jpg']
+sec2 = ['azzcombf_2.jpg','azzcomaf_2.jpg','mtbf_2.jpg','mtaf_2.jpg','etbf_2.jpg','etaf_2.jpg','azz_2.jpg']
+sec3 = ['azzcombf_3.jpg','azzcomaf_3.jpg','mtbf_3.jpg','mtaf_3.jpg','etbf_3.jpg','etaf_3.jpg','azz_3.jpg']
+sec1nbr = ['azzcombfnbr_1.jpg','azzcomafnbr_1.jpg','mtbfnbr_1.jpg','mtafnbr_1.jpg','etbfnbr_1.jpg','etafnbr_1.jpg','azznbr_1.jpg']
+sec2nbr = ['azzcombfnbr_2.jpg','azzcomafnbr_2.jpg','mtbfnbr_2.jpg','mtafnbr_2.jpg','etbfnbr_2.jpg','etafnbr_2.jpg','azznbr_2.jpg']
+sec3nbr = ['azzcombfnbr_3.jpg','azzcomafnbr_3.jpg','mtbfnbr_3.jpg','mtafnbr_3.jpg','etbfnbr_3.jpg','etafnbr_3.jpg','azznbr_3.jpg']
+speedL18 = ['speedbf_L1800.jpg','speedact_L1800.jpg','speedcs_L1800.jpg']
+rsrpL18 = ['rsrpbf_L1800.jpg','rsrpact_L1800.jpg','rsrpcs_L1800.jpg','chartrsrp_L1800.jpg']
+sinrL18 = ['sinrbf_L1800.jpg','sinract_L1800.jpg','sinrcs_L1800.jpg','chartsinr_L1800.jpg']
+thpL18 = ['thpbf_L1800.jpg','thpact_L1800.jpg','thpcs_L1800.jpg','chartthp_L1800.jpg']
+speedL9 = ['speedbf_L900.jpg','speedact_L900.jpg','speedcs_L900.jpg']
+rsrpL9 = ['rsrpbf_L900.jpg','rsrpact_L900.jpg','rsrpcs_L900.jpg','chartrsrp_L900.jpg']
+sinrL9 = ['sinrbf_L900.jpg','sinract_L900.jpg','sinrcs_L900.jpg','chartsinr_L900.jpg']
+thpL9 = ['thpbf_L900.jpg','thpact_L900.jpg','thpcs_L900.jpg','chartthp_L900.jpg']
+speedL21 = ['speedbf_L2100.jpg','speedact_L2100.jpg','speedcs_L2100.jpg']
+rsrpL21 = ['rsrpbf_L2100.jpg','rsrpact_L2100.jpg','rsrpcs_L2100.jpg','chartrsrp_L2100.jpg']
+sinrL21 = ['sinrbf_L2100.jpg','sinract_L2100.jpg','sinrcs_L2100.jpg','chartsinr_L2100.jpg']
+thpL21 = ['thpbf_L2100.jpg','thpact_L2100.jpg','thpcs_L2100.jpg','chartthp_L2100.jpg']
+speedL23 = ['speedbf_L2300.jpg','speedact_L2300.jpg','speedcs_L2300.jpg']
+rsrpL23 = ['rsrpbf_L2300.jpg','rsrpact_L2300.jpg','rsrpcs_L2300.jpg','chartrsrp_L2300.jpg']
+sinrL23 = ['sinrbf_L2300.jpg','sinract_L2300.jpg','sinrcs_L2300.jpg','chartsinr_L2300.jpg']
+thpL23 = ['thpbf_L2300.jpg','thpact_L2300.jpg','thpcs_L2300.jpg','chartthp_L2300.jpg']
+
+for i in range(len(Presentation.slides)):
+    print(f'slide {i}')
+    for shape in Presentation.slides[i].shapes: 
+        print('\t',(shape.name))
+def tulis ():
+    tbtext = tb.TextFrame.TextRange
+    tbtext.Text = teks
+    ppfont = tbtext.font
+    ppfont.size = 10
+    ppfont.Name = 'Calibri'
+    ppfont.Bold = True
+    ppfont.Color.RGB = 0 #black color 
+    paragrapformat = tbtext.ParagraphFormat
+    paragrapformat.Alignment = 2 
+
+def headjudul():
+    ppshtxt = ppsh_i.TextFrame.TextRange
+    ppshtxt.Text = judulhead
+    ppfonts = ppshtxt.font
+    ppfonts.Name = 'calibri'
+    ppfonts.size = 24
+    ppfonts.Bold = True
+    ppfonts.Color.RGB = 0 #black color
+
+def teknologi ():
+    tbtext = tb.TextFrame.TextRange
+    tbtext.Text = teks
+    ppfont = tbtext.font
+    ppfont.size = 18.8
+    ppfont.Name = 'Calibri'
+    ppfont.Bold = True
+    ppfont.Color.RGB = 0 #black color 
+    paragrapformat = tbtext.ParagraphFormat
+    paragrapformat.Alignment = 2 
+
+slide0 = Presentation.slides[0]
+ppsh_i = slide0.shapes[5]
+judulhead = 'Report Audit site idnya'
+headjudul()
+
+#baris atas
+tb = slide0.Shapes.AddTextbox(1,26.64,73.44,125.28,13.68) #kolom 1 atas
+teks = 'ORIENTASI BEFORE = 50'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,156.24,73.44,125.28,13.68) #kolom 2 atas
+teks = 'ORIENTASI AFTER = 60'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,283.68,73.44,125.28,13.68) #kolom 3 atas
+teks = 'MECHANICAL BEFORE = 3'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,411.12,73.44,125.28,13.68) #kolom 4 atas
+teks = 'MECHANICAL AFTER = 2'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,537.84,73.44,126.72,13.68) #kolom 5 atas
+teks = 'ELECTRICAL BEFORE = NON'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,666.72,73.44,125.28,13.68) #kolom 6 atas
+teks = 'ELECTRICAL AFTER = NON'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,802.08,73.44,125.28,13.68) #kolom 7 atas
+teks = 'VIEW ANTENNA'
+tulis()
+#baris tengah
+tb = slide0.Shapes.AddTextbox(1,26.64,221.76,125.28,13.68) #kolom 1 tengah
+teks = 'ORIENTASI BEFORE = 50'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,156.24,221.76,125.28,13.68) #kolom 2 tengah
+teks = 'ORIENTASI AFTER = 60'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,283.68,221.76,125.28,13.68) #kolom 3 tengah
+teks = 'MECHANICAL BEFORE = 3'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,411.12,221.76,125.28,13.68) #kolom 4 tengah
+teks = 'MECHANICAL AFTER = 2'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,537.84,221.76,126.72,13.68) #kolom 5 tengah
+teks = 'ELECTRICAL BEFORE = NON'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,666.72,221.76,125.28,13.68) #kolom 6 tengah
+teks = 'ELECTRICAL AFTER = NON'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,802.08,221.76,125.28,13.68) #kolom 7 tengah
+teks = 'VIEW ANTENNA'
+tulis()
+#baris bawah
+tb = slide0.Shapes.AddTextbox(1,26.64,371.52,125.28,13.68) #kolom 1 bawah
+teks = 'ORIENTASI BEFORE = 50'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,156.24,371.52,125.28,13.68) #kolom 2 bawah
+teks = 'ORIENTASI AFTER = 60'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,283.68,371.52,125.28,13.68) #kolom 3 bawah
+teks = 'MECHANICAL BEFORE = 3'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,411.12,371.52,125.28,13.68) #kolom 4 bawah
+teks = 'MECHANICAL AFTER = 2'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,537.84,371.52,126.72,13.68) #kolom 5 bawah
+teks = 'ELECTRICAL BEFORE = NON'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,666.72,371.52,125.28,13.68) #kolom 6 bawah
+teks = 'ELECTRICAL AFTER = NON'
+tulis()
+tb = slide0.Shapes.AddTextbox(1,802.08,371.52,125.28,13.68) #kolom 7 bawah
+teks = 'VIEW ANTENNA'
+tulis()
+#foto baris atas
+for i in sec1:
+    try:
+        if i in os.listdir(dirpath) and i == sec1[0]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec1[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1[1]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec1[1]}', LinkToFile=False, SaveWithDocument=True, Left=155.52, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1[2]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec1[2]}', LinkToFile=False, SaveWithDocument=True, Left=283.68, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1[3]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec1[3]}', LinkToFile=False, SaveWithDocument=True, Left=411.84, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1[4]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec1[4]}', LinkToFile=False, SaveWithDocument=True, Left=539.28, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1[5]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec1[5]}', LinkToFile=False, SaveWithDocument=True, Left=667.44, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1[6]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec1[6]}', LinkToFile=False, SaveWithDocument=True, Left=795.6, Top=90.72, Width=139.68, Height=108)
+    except: pass
+#foto baris tengah
+for i in sec2:
+    try:
+        if i in os.listdir(dirpath) and i == sec2[0]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec2[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2[1]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec2[1]}', LinkToFile=False, SaveWithDocument=True, Left=155.52, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2[2]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec2[2]}', LinkToFile=False, SaveWithDocument=True, Left=283.68, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2[3]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec2[3]}', LinkToFile=False, SaveWithDocument=True, Left=411.84, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2[4]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec2[4]}', LinkToFile=False, SaveWithDocument=True, Left=539.28, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2[5]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec2[5]}', LinkToFile=False, SaveWithDocument=True, Left=667.44, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2[6]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec2[6]}', LinkToFile=False, SaveWithDocument=True, Left=795.6, Top=239.76, Width=139.68, Height=108)
+    except: pass
+#foto baris bawah
+for i in sec3:
+    try:
+        if i in os.listdir(dirpath) and i == sec3[0]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec3[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3[1]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec3[1]}', LinkToFile=False, SaveWithDocument=True, Left=155.52, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3[2]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec3[2]}', LinkToFile=False, SaveWithDocument=True, Left=283.68, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3[3]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec3[3]}', LinkToFile=False, SaveWithDocument=True, Left=411.84, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3[4]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec3[4]}', LinkToFile=False, SaveWithDocument=True, Left=539.28, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3[5]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec3[5]}', LinkToFile=False, SaveWithDocument=True, Left=667.44, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3[6]: slide0.Shapes.AddPicture(FileName=f'{dirpath}/{sec3[6]}', LinkToFile=False, SaveWithDocument=True, Left=795.6, Top=388.8, Width=139.68, Height=108)
+    except: pass
+
+slide1 = Presentation.slides[1]
+ppsh_i = slide1.shapes[2]
+judulhead = 'Report Audit site idnya'
+headjudul()
+
+#baris atas
+tb = slide1.Shapes.AddTextbox(1,26.64,73.44,125.28,13.68) #kolom 1 atas
+teks = 'ORIENTASI BEFORE = 50'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,156.24,73.44,125.28,13.68) #kolom 2 atas
+teks = 'ORIENTASI AFTER = 60'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,283.68,73.44,125.28,13.68) #kolom 3 atas
+teks = 'MECHANICAL BEFORE = 3'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,411.12,73.44,125.28,13.68) #kolom 4 atas
+teks = 'MECHANICAL AFTER = 2'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,537.84,73.44,126.72,13.68) #kolom 5 atas
+teks = 'ELECTRICAL BEFORE = NON'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,666.72,73.44,125.28,13.68) #kolom 6 atas
+teks = 'ELECTRICAL AFTER = NON'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,802.08,73.44,125.28,13.68) #kolom 7 atas
+teks = 'VIEW ANTENNA'
+tulis()
+#baris tengah
+tb = slide1.Shapes.AddTextbox(1,26.64,221.76,125.28,13.68) #kolom 1 tengah
+teks = 'ORIENTASI BEFORE = 50'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,156.24,221.76,125.28,13.68) #kolom 2 tengah
+teks = 'ORIENTASI AFTER = 60'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,283.68,221.76,125.28,13.68) #kolom 3 tengah
+teks = 'MECHANICAL BEFORE = 3'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,411.12,221.76,125.28,13.68) #kolom 4 tengah
+teks = 'MECHANICAL AFTER = 2'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,537.84,221.76,126.72,13.68) #kolom 5 tengah
+teks = 'ELECTRICAL BEFORE = NON'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,666.72,221.76,125.28,13.68) #kolom 6 tengah
+teks = 'ELECTRICAL AFTER = NON'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,802.08,221.76,125.28,13.68) #kolom 7 tengah
+teks = 'VIEW ANTENNA'
+tulis()
+#baris bawah
+tb = slide1.Shapes.AddTextbox(1,26.64,371.52,125.28,13.68) #kolom 1 bawah
+teks = 'ORIENTASI BEFORE = 50'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,156.24,371.52,125.28,13.68) #kolom 2 bawah
+teks = 'ORIENTASI AFTER = 60'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,283.68,371.52,125.28,13.68) #kolom 3 bawah
+teks = 'MECHANICAL BEFORE = 3'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,411.12,371.52,125.28,13.68) #kolom 4 bawah
+teks = 'MECHANICAL AFTER = 2'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,537.84,371.52,126.72,13.68) #kolom 5 bawah
+teks = 'ELECTRICAL BEFORE = NON'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,666.72,371.52,125.28,13.68) #kolom 6 bawah
+teks = 'ELECTRICAL AFTER = NON'
+tulis()
+tb = slide1.Shapes.AddTextbox(1,802.08,371.52,125.28,13.68) #kolom 7 bawah
+teks = 'VIEW ANTENNA'
+tulis()
+#foto baris atas
+for i in sec1nbr:
+    try:
+        if i in os.listdir(dirpath) and i == sec1nbr[0]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec1nbr[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1nbr[1]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec1nbr[1]}', LinkToFile=False, SaveWithDocument=True, Left=155.52, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1nbr[2]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec1nbr[2]}', LinkToFile=False, SaveWithDocument=True, Left=283.68, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1nbr[3]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec1nbr[3]}', LinkToFile=False, SaveWithDocument=True, Left=411.84, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1nbr[4]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec1nbr[4]}', LinkToFile=False, SaveWithDocument=True, Left=539.28, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1nbr[5]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec1nbr[5]}', LinkToFile=False, SaveWithDocument=True, Left=667.44, Top=90.72, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec1nbr[6]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec1nbr[6]}', LinkToFile=False, SaveWithDocument=True, Left=795.6, Top=90.72, Width=139.68, Height=108)
+    except: pass
+#foto baris tengah
+for i in sec2nbr:
+    try:
+        if i in os.listdir(dirpath) and i == sec2nbr[0]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec2nbr[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2nbr[1]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec2nbr[1]}', LinkToFile=False, SaveWithDocument=True, Left=155.52, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2nbr[2]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec2nbr[2]}', LinkToFile=False, SaveWithDocument=True, Left=283.68, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2nbr[3]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec2nbr[3]}', LinkToFile=False, SaveWithDocument=True, Left=411.84, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2nbr[4]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec2nbr[4]}', LinkToFile=False, SaveWithDocument=True, Left=539.28, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2nbr[5]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec2nbr[5]}', LinkToFile=False, SaveWithDocument=True, Left=667.44, Top=239.76, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec2nbr[6]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec2nbr[6]}', LinkToFile=False, SaveWithDocument=True, Left=795.6, Top=239.76, Width=139.68, Height=108)
+    except: pass
+#foto baris bawah
+for i in sec3nbr:
+    try:
+        if i in os.listdir(dirpath) and i == sec3nbr[0]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec3nbr[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3nbr[1]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec3nbr[1]}', LinkToFile=False, SaveWithDocument=True, Left=155.52, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3nbr[2]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec3nbr[2]}', LinkToFile=False, SaveWithDocument=True, Left=283.68, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3nbr[3]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec3nbr[3]}', LinkToFile=False, SaveWithDocument=True, Left=411.84, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3nbr[4]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec3nbr[4]}', LinkToFile=False, SaveWithDocument=True, Left=539.28, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3nbr[5]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec3nbr[5]}', LinkToFile=False, SaveWithDocument=True, Left=667.44, Top=388.8, Width=126, Height=108)
+        if i in os.listdir(dirpath) and i == sec3nbr[6]: slide1.Shapes.AddPicture(FileName=f'{dirpath}/{sec3nbr[6]}', LinkToFile=False, SaveWithDocument=True, Left=795.6, Top=388.8, Width=139.68, Height=108)
+    except: pass
+
+#L1800 ====================================
+slide2 = Presentation.slides[2]
+tb = slide2.Shapes.AddTextbox(1,299.52,255.6,361.44,84.96) 
+teks = 'JPX170 DriveTest L1800'
+teknologi()
+slide3 = Presentation.slides[3]
+ppsh_i = slide3.shapes[7]
+judulhead = 'SpeedTest L1800'
+headjudul()
+for i in speedL18:
+    try:
+        if i in os.listdir(dirpath) and i == speedL18[0]: slide3.Shapes.AddPicture(FileName=f'{dirpath}/{speedL18[0]}', LinkToFile=False, SaveWithDocument=True, Left=81.36, Top=98.64, Width=169.92, Height=364.32)
+        if i in os.listdir(dirpath) and i == speedL18[1]: slide3.Shapes.AddPicture(FileName=f'{dirpath}/{speedL18[1]}', LinkToFile=False, SaveWithDocument=True, Left=395.28, Top=98.64, Width=169.92, Height=364.32)
+        if i in os.listdir(dirpath) and i == speedL18[2]: slide3.Shapes.AddPicture(FileName=f'{dirpath}/{speedL18[2]}', LinkToFile=False, SaveWithDocument=True, Left=704.88, Top=98.64, Width=169.92, Height=364.32)
+    except: pass
+slide4 = Presentation.slides[4]
+ppsh_i = slide4.shapes[7]
+judulhead = 'Coverage & Quality L1800'
+headjudul()
+for i in rsrpL18:
+    try:
+        if i in os.listdir(dirpath) and i == rsrpL18[0]: slide4.Shapes.AddPicture(FileName=f'{dirpath}/{rsrpL18[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == rsrpL18[1]: slide4.Shapes.AddPicture(FileName=f'{dirpath}/{rsrpL18[1]}', LinkToFile=False, SaveWithDocument=True, Left=337.68, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == rsrpL18[2]: slide4.Shapes.AddPicture(FileName=f'{dirpath}/{rsrpL18[2]}', LinkToFile=False, SaveWithDocument=True, Left=646.56, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == rsrpL18[3]: slide4.Shapes.AddPicture(FileName=f'{dirpath}/{rsrpL18[3]}', LinkToFile=False, SaveWithDocument=True, Left=543.6, Top=318.24, Width=389.52, Height=173.52)
+    except: pass
+slide5 = Presentation.slides[5]
+ppsh_i = slide5.shapes[7]
+judulhead = 'Coverage & Quality L1800'
+headjudul()
+for i in sinrL18:
+    try:
+        if i in os.listdir(dirpath) and i == sinrL18[0]: slide5.Shapes.AddPicture(FileName=f'{dirpath}/{sinrL18[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == sinrL18[1]: slide5.Shapes.AddPicture(FileName=f'{dirpath}/{sinrL18[1]}', LinkToFile=False, SaveWithDocument=True, Left=337.68, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == sinrL18[2]: slide5.Shapes.AddPicture(FileName=f'{dirpath}/{sinrL18[2]}', LinkToFile=False, SaveWithDocument=True, Left=646.56, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == sinrL18[3]: slide5.Shapes.AddPicture(FileName=f'{dirpath}/{sinrL18[3]}', LinkToFile=False, SaveWithDocument=True, Left=543.6, Top=318.24, Width=389.52, Height=173.52)
+    except: pass
+slide6 = Presentation.slides[6]
+ppsh_i = slide6.shapes[7]
+judulhead = 'Coverage & Quality L1800'
+headjudul()
+for i in thpL18:
+    try:
+        if i in os.listdir(dirpath) and i == thpL18[0]: slide6.Shapes.AddPicture(FileName=f'{dirpath}/{thpL18[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == thpL18[1]: slide6.Shapes.AddPicture(FileName=f'{dirpath}/{thpL18[1]}', LinkToFile=False, SaveWithDocument=True, Left=337.68, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == thpL18[2]: slide6.Shapes.AddPicture(FileName=f'{dirpath}/{thpL18[2]}', LinkToFile=False, SaveWithDocument=True, Left=646.56, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == thpL18[3]: slide6.Shapes.AddPicture(FileName=f'{dirpath}/{thpL18[3]}', LinkToFile=False, SaveWithDocument=True, Left=543.6, Top=318.24, Width=389.52, Height=173.52)
+    except: pass
+#L900 =====================================
+slide7 = Presentation.slides[7]
+tb = slide7.Shapes.AddTextbox(1,299.52,255.6,361.44,84.96) 
+teks = 'JPX170 DriveTest L900'
+teknologi()
+slide8 = Presentation.slides[8]
+ppsh_i = slide8.shapes[7]
+judulhead = 'SpeedTest L900'
+headjudul()
+for i in speedL9:
+    try:
+        if i in os.listdir(dirpath) and i == speedL9[0]: slide8.Shapes.AddPicture(FileName=f'{dirpath}/{speedL9[0]}', LinkToFile=False, SaveWithDocument=True, Left=81.36, Top=98.64, Width=169.92, Height=364.32)
+        if i in os.listdir(dirpath) and i == speedL9[1]: slide8.Shapes.AddPicture(FileName=f'{dirpath}/{speedL9[1]}', LinkToFile=False, SaveWithDocument=True, Left=395.28, Top=98.64, Width=169.92, Height=364.32)
+        if i in os.listdir(dirpath) and i == speedL9[2]: slide8.Shapes.AddPicture(FileName=f'{dirpath}/{speedL9[2]}', LinkToFile=False, SaveWithDocument=True, Left=704.88, Top=98.64, Width=169.92, Height=364.32)
+    except: pass
+slide9 = Presentation.slides[9]
+ppsh_i = slide9.shapes[7]
+judulhead = 'Coverage & Quality L900'
+headjudul()
+for i in rsrpL9:
+    try:
+        if i in os.listdir(dirpath) and i == rsrpL9[0]: slide9.Shapes.AddPicture(FileName=f'{dirpath}/{rsrpL9[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == rsrpL9[1]: slide9.Shapes.AddPicture(FileName=f'{dirpath}/{rsrpL9[1]}', LinkToFile=False, SaveWithDocument=True, Left=337.68, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == rsrpL9[2]: slide9.Shapes.AddPicture(FileName=f'{dirpath}/{rsrpL9[2]}', LinkToFile=False, SaveWithDocument=True, Left=646.56, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == rsrpL9[3]: slide9.Shapes.AddPicture(FileName=f'{dirpath}/{rsrpL9[3]}', LinkToFile=False, SaveWithDocument=True, Left=543.6, Top=318.24, Width=389.52, Height=173.52)
+    except: pass
+slide10 = Presentation.slides[10]
+ppsh_i = slide10.shapes[7]
+judulhead = 'Coverage & Quality L900'
+headjudul()
+for i in sinrL9:
+    try:
+        if i in os.listdir(dirpath) and i == sinrL9[0]: slide10.Shapes.AddPicture(FileName=f'{dirpath}/{sinrL9[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == sinrL9[1]: slide10.Shapes.AddPicture(FileName=f'{dirpath}/{sinrL9[1]}', LinkToFile=False, SaveWithDocument=True, Left=337.68, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == sinrL9[2]: slide10.Shapes.AddPicture(FileName=f'{dirpath}/{sinrL9[2]}', LinkToFile=False, SaveWithDocument=True, Left=646.56, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == sinrL9[3]: slide10.Shapes.AddPicture(FileName=f'{dirpath}/{sinrL9[3]}', LinkToFile=False, SaveWithDocument=True, Left=543.6, Top=318.24, Width=389.52, Height=173.52)
+    except: pass
+slide11 = Presentation.slides[11]
+ppsh_i = slide11.shapes[7]
+judulhead = 'Coverage & Quality L900'
+headjudul()
+for i in thpL9:
+    try:
+        if i in os.listdir(dirpath) and i == thpL9[0]: slide11.Shapes.AddPicture(FileName=f'{dirpath}/{thpL9[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == thpL9[1]: slide11.Shapes.AddPicture(FileName=f'{dirpath}/{thpL9[1]}', LinkToFile=False, SaveWithDocument=True, Left=337.68, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == thpL9[2]: slide11.Shapes.AddPicture(FileName=f'{dirpath}/{thpL9[2]}', LinkToFile=False, SaveWithDocument=True, Left=646.56, Top=100.08, Width=286.56, Height=182.16)
+        if i in os.listdir(dirpath) and i == thpL9[3]: slide11.Shapes.AddPicture(FileName=f'{dirpath}/{thpL9[3]}', LinkToFile=False, SaveWithDocument=True, Left=543.6, Top=318.24, Width=389.52, Height=173.52)
+    except: pass
+
