@@ -1,0 +1,48 @@
+import win32com.client 
+
+Application = win32com.client.Dispatch("PowerPoint.Application")
+Excel = win32com.client.Dispatch("Excel.Application")
+wb1 = Excel.Workbooks.Open(r"E:\IOH EJ\Banyuwangi 5\testtracker.xlsx") #diambil dari tracker badspot
+sh1 =wb1.Worksheets("Sheet1")
+ppPres = Application.Presentations.add()
+ppSlide = ppPres.Slides.add(1,12)
+sl = 1
+kiri = [0,18,480.24,18,480.24]
+atas = [0,15.84,15.84,291.6,291.6]
+
+def cetak ():
+    ppshape = ppSlide.Shapes.AddTextbox(1,kiri[boknum],atas[boknum],400,340)
+    pptext = ppshape.TextFrame.TextRange
+    pptext.Text = f'''
+    Background :
+    -{bsid} Covered by 16BWI0127_KALIKLATAK_PL sector 2 / sector 3 ,distance to site 1.1Km / 1.2 Km, Population low and scattered, found overshooting. 
+    Analysis :
+    -{analysis}
+    Action Done:
+    -{action} 
+    Result:
+    -Total Traffic (GB) Increased 1.31% From 161.21 GB To 163.33 GB
+    -CQI Maintained -1.50%, From 9.34 to 9.20
+    -RSRP Decrease -2.11%
+    '''
+    ppfonts = pptext.font
+    ppfonts.Name = 'calibri'
+    ppfonts.size = 12
+    #ppfonts.Bold = True
+    ppfonts.Color.RGB = 0 #black color
+boknum = 1
+for i in range(1, 1048575):     
+    if sh1.cells(i+1,2).value != None :
+        if boknum < 5:
+            bsid = sh1.cells(i+1,5).value
+            analysis = sh1.cells(i+1,8).value
+            action = sh1.cells(i+1,10).value
+            cetak()
+            boknum += 1
+        else:
+            sl += 1
+            ppSlide = ppPres.Slides.add(sl,12)
+            boknum = 1
+    else: break
+print(i)
+wb1.Close()
