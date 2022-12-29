@@ -2,7 +2,7 @@ import win32com.client
 
 Application = win32com.client.Dispatch("PowerPoint.Application")
 Excel = win32com.client.Dispatch("Excel.Application")
-wb1 = Excel.Workbooks.Open(r"E:\IOH EJ\Banyuwangi 5\testtracker.xlsx") #diambil dari tracker badspot
+wb1 = Excel.Workbooks.Open(r"E:\IOH EJ\Jember-1\tracker BS JBR-1.xlsx") #diambil dari tracker badspot
 sh1 =wb1.Worksheets("Sheet1")
 ppPres = Application.Presentations.add()
 ppSlide = ppPres.Slides.add(1,12)
@@ -15,15 +15,14 @@ def cetak ():
     pptext = ppshape.TextFrame.TextRange
     pptext.Text = f'''
     Background :
-    -{bsid} Covered by 16BWI0127_KALIKLATAK_PL sector 2 / sector 3 ,distance to site 1.1Km / 1.2 Km, Population low and scattered, found overshooting. 
+    -{bsid} {bg}. 
     Analysis :
     -{analysis}
     Action Done:
     -{action} 
     Result:
-    -Total Traffic (GB) Increased 1.31% From 161.21 GB To 163.33 GB
-    -CQI Maintained -1.50%, From 9.34 to 9.20
-    -RSRP Decrease -2.11%
+    -RSRP Decrease -2.11% Total Traffic (GB) Increased 1.31% From 161.21 GB To 163.33 GB
+    -CQI Maintained -1.50%
     '''
     ppfonts = pptext.font
     ppfonts.Name = 'calibri'
@@ -35,6 +34,7 @@ for i in range(1, 1048575):
     if sh1.cells(i+1,2).value != None :
         if boknum < 5:
             bsid = sh1.cells(i+1,5).value
+            bg = sh1.cells(i+1,6).value
             analysis = sh1.cells(i+1,8).value
             action = sh1.cells(i+1,10).value
             cetak()
@@ -43,6 +43,13 @@ for i in range(1, 1048575):
             sl += 1
             ppSlide = ppPres.Slides.add(sl,12)
             boknum = 1
+            bsid = sh1.cells(i+1,5).value
+            bg = sh1.cells(i+1,6).value
+            analysis = sh1.cells(i+1,8).value
+            action = sh1.cells(i+1,10).value
+            cetak()
+            boknum += 1
+
     else: break
 print(i)
 wb1.Close()
