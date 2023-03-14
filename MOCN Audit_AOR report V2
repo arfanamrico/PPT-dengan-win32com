@@ -1,0 +1,390 @@
+import pandas as pd
+import win32com.client
+import os
+
+# Application = win32com.client.Dispatch("PowerPoint.Application")
+# Application.visible = True
+# ppapp = Application.Presentations.Open(r"E:\Template\Audit MOCN Report.pptx") # open file ppt
+dirpath = r"E:\NPM\Audit_AOR"
+# for i in range(len(ppapp.slides)):
+#     print(f'slide {i}')
+#     for shape in ppapp.slides[i].shapes: 
+#         print('\t',(shape.name))
+panoramic = ["0.jpg","30.jpg","60.jpg","90.jpg","120.jpg","150.jpg","180.jpg","210.jpg","240.jpg","270.jpg","300.jpg","330.jpg"]
+ant = ["Antenna SEC 1.jpg","Antenna SEC 2.jpg","Antenna SEC 3.jpg"]
+lblant = ["Antenna Label SEC 1.jpg","Antenna Label SEC 2.jpg","Antenna Label SEC 3.jpg"]
+azz = ["SEC 1 View No Compas.jpg","SEC 2 View No Compas.jpg","SEC 3 View No Compas.jpg"]
+azz_co = ["SEC 1 View.jpg","SEC 2 View.jpg","SEC 3 View.jpg"]
+mdt = ["M-Tilt SEC 1.jpg","M-Tilt SEC 2.jpg","M-Tilt SEC 3.jpg"]
+edt = ["E-Tilt SEC 1.jpg","E-Tilt SEC 2.jpg","E-Tilt SEC 3.jpg"]
+edty1 = ["E-Tilt SEC1 Y1.jpg","E-Tilt SEC2 Y1.jpg","E-Tilt SEC3 Y1.jpg"]
+edty2 = ["E-Tilt SEC1 Y2.jpg","E-Tilt SEC2 Y2.jpg","E-Tilt SEC3 Y2.jpg"]
+edty3 = ["E-Tilt SEC1 Y3.jpg","E-Tilt SEC2 Y3.jpg","E-Tilt SEC3 Y3.jpg"]
+edty4 = ["E-Tilt SEC1 Y4.jpg","E-Tilt SEC2 Y4.jpg","E-Tilt SEC3 Y4.jpg"]
+edtr1 = ["E-Tilt SEC1 R1.jpg","E-Tilt SEC2 R1.jpg","E-Tilt SEC3 R1.jpg"]
+h_ant = ["High Ant Sec 1.jpg","High Ant Sec 2.jpg","High Ant Sec 3.jpg"]
+site_con = ["Site Far View.jpg","Site Near View.jpg","Equip Room.jpg","GPS.jpg","Feeder Inlet.jpg","ge"]
+azz_bef = ["AzimuthSEC1 Before.jpg","AzimuthSEC2 Before.jpg","AzimuthSEC3 Before.jpg"]
+azz_aft = ["AzimuthSEC1 After.jpg","AzimuthSEC2 After.jpg","AzimuthSEC3 After.jpg"]
+mdt_bef = ["M-TiltSEC1 Before.jpg","M-TiltSEC2 Before.jpg","M-TiltSEC3 Before.jpg"]
+mdt_aft = ["M-TiltSEC1 After.jpg","M-TiltSEC2 After.jpg","M-TiltSEC3 After.jpg"]
+edt_bef = ["E-TiltSEC1 Before.jpg","E-TiltSEC2 Before.jpg","E-TiltSEC3 Before.jpg"]
+edt_aft = ["E-TiltSEC1 After.jpg","E-TiltSEC2 After.jpg","E-TiltSEC3 After.jpg"]
+sitelist = []
+for i in os.listdir(dirpath):
+    if i in sitelist: pass
+    else: sitelist.append(i)
+for site in sitelist:
+    Application = win32com.client.Dispatch("PowerPoint.Application")
+    Application.visible = True
+    ppapp = Application.Presentations.Open(r"E:\Template\Audit MOCN Report.pptx") # open file ppt
+    
+#================membaca tracker=====================
+    siteid = site
+    ban = 'L1800'
+    path = r"E:\NPM\TRACKER\(CSum)_AOR Tracker CS 20230310.xlsx"
+    df = pd.read_excel(path, sheet_name='MOCN')
+    df = pd.DataFrame(df)
+    for i in range (0, len(df['Site ID MOCN'])):
+        if df.loc[i,'Site ID MOCN']==siteid: 
+            if df.loc[i, 'Band']== ban:
+                num = i
+                break
+# print(num)
+# df = df[(df['df ID MOCN']=='04PBR0197') & (df['Band']== 'L900')]
+    azz1,azz2,azz3 = df.loc[num,'Azimuth Actual'],df.loc[num+1,'Azimuth Actual'],df.loc[num+2,'Azimuth Actual']
+    mdt1,mdt2,mdt3 = df.loc[num,'M-Tilt  Actual'],df.loc[num+1,'M-Tilt  Actual'],df.loc[num+2,'M-Tilt  Actual']
+    edt1,edt2,edt3 = df.loc[num,'E-Tilt  Actual'],df.loc[num+1,'E-Tilt  Actual'],df.loc[num+2,'E-Tilt  Actual']
+    azz1af,azz2af,azz3af = df.loc[num,'Azimuth Adjustment'],df.loc[num+1,'Azimuth Adjustment'],df.loc[num+2,'Azimuth Adjustment']
+    mdt1af,mdt2af,mdt3af = df.loc[num,'M-Tilt  Adjustment'],df.loc[num+1,'M-Tilt  Adjustment'],df.loc[num+2,'M-Tilt  Adjustment']
+    edt1af,edt2af,edt3af = df.loc[num,'E-Tilt  Adjustment'],df.loc[num+1,'E-Tilt  Adjustment'],df.loc[num+2,'E-Tilt  Adjustment']
+
+    h1,h2,h3 = df.loc[num,'Antenna Height Actual'],df.loc[num+1,'Antenna Height Actual'],df.loc[num+2,'Antenna Height Actual']
+    long, lat = df.loc[num,'Longitude Actual'], df.loc[num,'Latitude Actual']
+    anttype = df.loc[num,'Antenna Type Actual']
+    tanggal = df.loc[num,'Visit Date']
+    sitename = df.loc[num,'Sitename']
+
+    print(h1,azz1,mdt1,edt1,">>>>",h1,azz1af,mdt1af,edt1af)
+    print(h2,azz2,mdt2,edt2,">>>>",h1,azz2af,mdt2af,edt2af)
+    print(h3,azz3,mdt3,edt3,">>>>",h1,azz3af,mdt3af,edt3af)
+
+#=========================================
+
+    def tulis():
+        ppshtxt = ppsh_i.TextFrame.TextRange
+        ppshtxt.Text = nilai
+    def isi():
+        tbltxt.Text = nilainya
+        paragrapformat = tbltxt.ParagraphFormat
+        paragrapformat.Alignment = 2
+    def judul ():
+        tbtext = tb.TextFrame.TextRange
+        tbtext.Text = teks
+        ppfont = tbtext.font
+        ppfont.size = 24
+        ppfont.Name = 'Arial'
+        ppfont.Bold = True
+        ppfont.Color.RGB = 192 #black color 
+        paragrapformat = tbtext.ParagraphFormat
+        paragrapformat.Alignment = 1
+    slide0 = ppapp.slides[0]
+    tb = slide0.Shapes.AddTextbox(1,219.6,108,254.88,36.72) #judul
+    teks = siteid
+    judul()
+    tb = slide0.Shapes.AddTextbox(1,218.16,144.72,483.84,36.72) #judul
+    teks = sitename
+    judul()
+    tb = slide0.Shapes.AddTextbox(1,218.16,252,279.36,36.72) #judul
+    teks = tanggal
+    judul()
+
+    slide3 = ppapp.slides[3]
+    try:
+        slide3.Shapes.AddPicture(FileName=f'{dirpath}/{site}/site/ge.jpg', LinkToFile=False, SaveWithDocument=True, Left=21.6, Top=74.88, Width=478.08, Height=390.24)
+    except:pass
+    slide4 = ppapp.slides[4]
+    tabelsh = slide4.shapes[3]
+    tbl = tabelsh.Table
+#=======table before/audit=====
+    for c in range(2,5): #mengisi site name
+        cell = tbl.Cell(c,1) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = siteid
+        isi()
+    for c in range(2,5): #mengisi type antenna
+        cell = tbl.Cell(c,2) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = anttype
+        isi()
+    for c in range(2,5): #mengisi Longitude
+        cell = tbl.Cell(c,3) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = long
+        isi()
+    for c in range(2,5): #mengisi Latitude
+        cell = tbl.Cell(c,4) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = lat
+        isi()
+    dir = [azz1,azz2,azz3]
+    nd = 0
+    for c in range(2,5): #mengisi azimuth
+        cell = tbl.Cell(c,5) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = dir[nd]
+        nd += 1
+        isi()
+    ha = [h1,h2,h3]
+    nd = 0
+    for c in range(2,5): #mengisi height antenna
+        cell = tbl.Cell(c,6) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = ha[nd]
+        nd += 1
+        isi()
+    mek = [mdt1,mdt2,mdt3]
+    nd = 0
+    for c in range(2,5): #mengisi MDT
+        cell = tbl.Cell(c,7) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = mek[nd]
+        nd += 1
+        isi()
+    ele = [edt1,edt2,edt3]
+    nd = 0
+    for c in range(2,5): #mengisi EDT
+        cell = tbl.Cell(c,8) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = ele[nd]
+        nd += 1
+        isi()
+#=======table after/AOR=====
+    tabelsh = slide4.shapes[4]
+    tbl = tabelsh.Table
+    for c in range(2,5): #mengisi site name
+        cell = tbl.Cell(c,1) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = siteid
+        isi()
+    for c in range(2,5): #mengisi type antenna
+        cell = tbl.Cell(c,2) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = anttype
+        isi()
+    for c in range(2,5): #mengisi Longitude
+        cell = tbl.Cell(c,3) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = long
+        isi()
+    for c in range(2,5): #mengisi Latitude
+        cell = tbl.Cell(c,4) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = lat
+        isi()
+    dir = [azz1af,azz2af,azz3af]
+    nd = 0
+    for c in range(2,5): #mengisi azimuth
+        cell = tbl.Cell(c,5) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = dir[nd]
+        nd += 1
+        isi()
+    ha = [h1,h2,h3]
+    nd = 0
+    for c in range(2,5): #mengisi height antenna
+        cell = tbl.Cell(c,6) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = ha[nd]
+        nd += 1
+        isi()
+    mek = [mdt1af,mdt2af,mdt3af]
+    nd = 0
+    for c in range(2,5): #mengisi MDT
+        cell = tbl.Cell(c,7) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = mek[nd]
+        nd += 1
+        isi()
+    ele = [edt1af,edt2af,edt3af]
+    nd = 0
+    for c in range(2,5): #mengisi EDT
+        cell = tbl.Cell(c,8) #row,colom
+        tbltxt = cell.Shape.TextFrame.TextRange
+        nilainya = ele[nd]
+        nd += 1
+        isi()
+
+    slide5 = ppapp.slides[5]
+    for i in panoramic:
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[0]:slide5.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[1]:slide5.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[2]:slide5.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[3]:slide5.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[3]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[4]:slide5.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[4]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[5]:slide5.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[5]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide6 = ppapp.slides[6]
+    for i in panoramic:
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[6]:slide6.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[6]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[7]:slide6.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[7]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[8]:slide6.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[8]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[9]:slide6.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[9]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[10]:slide6.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[10]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/panoramik') and i == panoramic[11]:slide6.Shapes.AddPicture(FileName=f'{dirpath}/{site}/panoramik/{panoramic[11]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide7 = ppapp.slides[7]
+    for i in ant:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == ant[0]:slide7.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{ant[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == ant[1]:slide7.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{ant[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == ant[2]:slide7.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{ant[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    for i in lblant:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == lblant[0]:slide7.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{lblant[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == lblant[1]:slide7.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{lblant[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == lblant[2]:slide7.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{lblant[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide8 = ppapp.slides[8]
+    ppsh_i = slide8.shapes[1]
+    nilai = f'SEC 1 View: {azz1}'
+    tulis()
+    ppsh_i = slide8.shapes[2]
+    nilai = f'SEC 1 View: {azz2}'
+    tulis()
+    ppsh_i = slide8.shapes[3]
+    nilai = f'SEC 1 View: {azz3}'
+    tulis()
+    for i in azz:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == azz[0]:slide8.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{azz[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == azz[1]:slide8.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{azz[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == azz[2]:slide8.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{azz[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    for i in azz_co:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == azz_co[0]:slide8.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{azz_co[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == azz_co[1]:slide8.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{azz_co[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == azz_co[2]:slide8.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{azz_co[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide9 = ppapp.slides[9]
+    ppsh_i = slide9.shapes[1]
+    nilai = f'M-Tilt SEC 1: {mdt1}'
+    tulis()
+    ppsh_i = slide9.shapes[2]
+    nilai = f'M-Tilt SEC 2: {mdt2}'
+    tulis()
+    ppsh_i = slide9.shapes[5]
+    nilai = f'M-Tilt SEC 3: {mdt3}'
+    tulis()
+    ppsh_i = slide9.shapes[3]
+    nilai = f'E-Tilt SEC 1: {edt1}'
+    tulis()
+    ppsh_i = slide9.shapes[4]
+    nilai = f'E-Tilt SEC 2: {edt2}'
+    tulis()
+    ppsh_i = slide9.shapes[6]
+    nilai = f'E-Tilt SEC 3: {edt3}'
+    tulis()
+    for i in mdt:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == mdt[0]:slide9.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{mdt[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == mdt[1]:slide9.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{mdt[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == mdt[2]:slide9.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{mdt[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    for i in edt:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == edt[0]:slide9.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{edt[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == edt[1]:slide9.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{edt[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == edt[2]:slide9.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{edt[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide10 = ppapp.slides[10]
+    ppsh_i = slide10.shapes[1]
+    nilai = f'High SEC 1: {h1}'
+    tulis()
+    ppsh_i = slide10.shapes[2]
+    nilai = f'High SEC 2: {h2}'
+    tulis()
+    ppsh_i = slide10.shapes[3]
+    nilai = f'High SEC 3: {h3}'
+    tulis()
+    for i in h_ant:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == h_ant[0]:slide10.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{h_ant[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == h_ant[1]:slide10.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{h_ant[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == h_ant[2]:slide10.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{h_ant[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    slide11 = ppapp.slides[11]
+    for i in site_con:
+        if i in os.listdir(f'{dirpath}/{site}/site') and i == site_con[0]:slide11.Shapes.AddPicture(FileName=f'{dirpath}/{site}/site/{site_con[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=378)
+        if i in os.listdir(f'{dirpath}/{site}/site') and i == site_con[1]:slide11.Shapes.AddPicture(FileName=f'{dirpath}/{site}/site/{site_con[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/site') and i == site_con[2]:slide11.Shapes.AddPicture(FileName=f'{dirpath}/{site}/site/{site_con[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/site') and i == site_con[3]:slide11.Shapes.AddPicture(FileName=f'{dirpath}/{site}/site/{site_con[3]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/site') and i == site_con[4]:slide11.Shapes.AddPicture(FileName=f'{dirpath}/{site}/site/{site_con[4]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide12 = ppapp.slides[12]
+    for i in edtr1:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == edtr1[0]:slide12.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{edtr1[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == edtr1[1]:slide12.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{edtr1[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == edtr1[2]:slide12.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{edtr1[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    for i in edty1:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == edty1[0]:slide12.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{edty1[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == edty1[1]:slide12.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{edty1[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == edty1[2]:slide12.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{edty1[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide13 = ppapp.slides[13]
+    for i in edty2:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == edty2[0]:slide13.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{edty2[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == edty2[1]:slide13.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{edty2[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == edty2[2]:slide13.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{edty2[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    for i in edty3:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == edty3[0]:slide13.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{edty3[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == edty3[1]:slide13.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{edty3[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == edty3[2]:slide13.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{edty3[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide14 = ppapp.slides[14]
+    for i in edty4:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == edty4[0]:slide14.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{edty4[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == edty4[1]:slide14.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{edty4[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == edty4[2]:slide14.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{edty4[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    #==============slide AOR =====================
+    slide16 = ppapp.slides[16]
+    ppsh_i = slide16.shapes[1]
+    nilai = f'Azz SEC1 Before: {azz1}'
+    tulis()
+    ppsh_i = slide16.shapes[2]
+    nilai = f'Azz SEC2 Before: {azz2}'
+    tulis()
+    ppsh_i = slide16.shapes[5]
+    nilai = f'Azz SEC3 Before: {azz3}'
+    tulis()
+    ppsh_i = slide16.shapes[3]
+    nilai = f'Azz SEC1 After: {azz1af}'
+    tulis()
+    ppsh_i = slide16.shapes[4]
+    nilai = f'Azz SEC2 After: {azz2af}'
+    tulis()
+    ppsh_i = slide16.shapes[6]
+    nilai = f'Azz SEC3 After: {azz3af}'
+    tulis()
+    for i in azz:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == azz[0]:slide16.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{azz[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == azz[1]:slide16.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{azz[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == azz[2]:slide16.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{azz[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    for i in azz_aft:
+        if i in os.listdir(f'{dirpath}/{site}/aor') and i == azz_aft[0]:slide16.Shapes.AddPicture(FileName=f'{dirpath}/{site}/aor/{azz_aft[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/aor') and i == azz_aft[1]:slide16.Shapes.AddPicture(FileName=f'{dirpath}/{site}/aor/{azz_aft[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/aor') and i == azz_aft[2]:slide16.Shapes.AddPicture(FileName=f'{dirpath}/{site}/aor/{azz_aft[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    slide17 = ppapp.slides[17]
+    ppsh_i = slide17.shapes[1]
+    nilai = f'MDT SEC1 Before: {mdt1}'
+    tulis()
+    ppsh_i = slide17.shapes[2]
+    nilai = f'MDT SEC2 Before: {mdt2}'
+    tulis()
+    ppsh_i = slide17.shapes[5]
+    nilai = f'MDT SEC3 Before: {mdt3}'
+    tulis()
+    ppsh_i = slide17.shapes[3]
+    nilai = f'MDT SEC1 After: {mdt1af}'
+    tulis()
+    ppsh_i = slide17.shapes[4]
+    nilai = f'MDT SEC2 After: {mdt2af}'
+    tulis()
+    ppsh_i = slide17.shapes[6]
+    nilai = f'MDT SEC3 After: {mdt3af}'
+    tulis()
+    for i in mdt:
+        if i in os.listdir(f'{dirpath}/{site}/sector1') and i == mdt[0]:slide17.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector1/{mdt[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=90, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector2') and i == mdt[1]:slide17.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector2/{mdt[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=90.72, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/sector3') and i == mdt[2]:slide17.Shapes.AddPicture(FileName=f'{dirpath}/{site}/sector3/{mdt[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=90.72, Width=214.56, Height=173.52)
+    for i in mdt_aft:
+        if i in os.listdir(f'{dirpath}/{site}/aor') and i == mdt_aft[0]:slide17.Shapes.AddPicture(FileName=f'{dirpath}/{site}/aor/{mdt_aft[0]}', LinkToFile=False, SaveWithDocument=True, Left=25.92, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/aor') and i == mdt_aft[1]:slide17.Shapes.AddPicture(FileName=f'{dirpath}/{site}/aor/{mdt_aft[1]}', LinkToFile=False, SaveWithDocument=True, Left=253.44, Top=295.2, Width=214.56, Height=173.52)
+        if i in os.listdir(f'{dirpath}/{site}/aor') and i == mdt_aft[2]:slide17.Shapes.AddPicture(FileName=f'{dirpath}/{site}/aor/{mdt_aft[2]}', LinkToFile=False, SaveWithDocument=True, Left=480.96, Top=295.2, Width=214.56, Height=173.52)
+    namareport = f'{siteid}_{sitename}.pptx'
+    ppapp.SaveAs(f'{dirpath}/{namareport}')
+    ppapp.close()
+    print(f'Report {site} {sitename} selesai !!!')
