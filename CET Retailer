@@ -1,0 +1,87 @@
+import win32com.client 
+import os
+import pandas as pd 
+
+picpath = r"E:\NPM\visite retailer\Padang\tasking 6 kabupaten"
+
+logojudul = r"E:\Template\Logo ioh\logo gambar.jpg"
+logooperator = r"E:\Template\Logo ioh\logo nama operator.jpg"
+logoslide = r"E:\Template\Logo ioh\logo gambar slide.jpg"
+logohw = r"E:\Template\Logo ioh\logo huawei.jpg"
+tracker = r"E:\NPM\visite retailer\Plan Outlet Visit Sumatera Mar 2023_Siantar_Padang.xlsx"
+Application = win32com.client.Dispatch("PowerPoint.Application")
+Application.Visible = True 
+
+df = pd.read_excel(tracker, sheet_name='Tracker Visit Mar', skiprows=1)
+df = pd.DataFrame(df)
+def keterangan ():
+    tbtext = tk.TextFrame.TextRange
+    tbtext.Text = tekket
+    ppfont = tbtext.font
+    ppfont.size = 18
+    ppfont.Name = 'Helvetica'
+    ppfont.Italic = True
+    ppfont.Color.RGB = 0 #black color 
+    paragrapformat = tbtext.ParagraphFormat
+    paragrapformat.Alignment = 1
+def tulisnamaretail ():
+    tbtext = tr.TextFrame.TextRange
+    tbtext.Text = tekth
+    ppfont = tbtext.font
+    ppfont.size = 12
+    ppfont.Name = 'Helvetica'
+    ppfont.Italic = True
+    ppfont.Color.RGB = 0 #black color 
+    paragrapformat = tbtext.ParagraphFormat
+    paragrapformat.Alignment = 2
+def heder ():
+    tbtext = th.TextFrame.TextRange
+    tbtext.Text = tekth
+    ppfont = tbtext.font
+    ppfont.size = 26.7
+    ppfont.Name = 'qualy'
+    ppfont.Bold = True
+    ppfont.Color.RGB = 0 #black color 
+    paragrapformat = tbtext.ParagraphFormat
+    paragrapformat.Alignment = 1
+
+ppPres = Application.Presentations.add()
+
+num = 1
+def proses():
+    global num, th, tekth, tk, tekket, tr
+    # slidename = f'slide{num}'
+    dfretail = df[df['Retailer Name']==nama[0]].reset_index(drop=True)
+    slidename = ppPres.Slides.add(num, 12)
+    num += 1
+    slidename.Shapes.AddPicture(FileName=logooperator, LinkToFile=False, SaveWithDocument=True, Left=784.08, Top=0, Width=176.4, Height=84.96)
+    slidename.Shapes.AddPicture(FileName=logoslide, LinkToFile=False, SaveWithDocument=True, Left=838.8, Top=415.44, Width=121.68, Height=124.56)
+    th = slidename.Shapes.AddTextbox(1,10.8,0,414.72,38.16) #header
+    tekth = f'{nama[0]}'
+    heder()
+    tr = slidename.Shapes.AddTextbox(1,311.04,478.8,162.72,17.28) #header
+    tulisnamaretail ()
+    tk = slidename.Shapes.AddTextbox(1,480.24,64.08,473.76,159.84) #keterangan
+    tekket = f"""{nama[0]}
+Site Serving IM3: {dfretail.loc[0,'Sitename']}
+Site Serving 3ID: {dfretail.loc[0,'Sitename']}
+Coverage: {dfretail.loc[0,'Category']}
+Speed: {dfretail.loc[0,'Category.2']}
+Service Experience: {dfretail.loc[0,'IOH Experience Category']}
+Retailer Feedback: {dfretail.loc[0,'Retailer 1st Feedback']} Experience
+    """
+    keterangan()
+    slidename.Shapes.AddPicture(FileName=path, LinkToFile=False, SaveWithDocument=True, Left=41.76, Top=53.28, Width=361.44, Height=360.72)
+    ceknama = nama[0]+'_ge'
+    for i in os.listdir(picpath):
+        cekge = i.split('.')[0]
+        try:
+            if ceknama == cekge: slidename.Shapes.AddPicture(FileName=f'{picpath}/{i}', LinkToFile=False, SaveWithDocument=True, Left=481.68, Top=230.4, Width=408.96, Height=264.96)            
+        except:pass
+
+for name in os.listdir(picpath):
+    path = os.path.join(picpath, name)
+    if path.endswith('.jpeg') and os.path.isfile(path):
+        nama = [ b for a in name.split('.') for b in a.split('_')]
+        if 'ge' in nama: pass
+        else: proses()
